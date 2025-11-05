@@ -1,9 +1,27 @@
 import cv2
 import numpy as np
 
+def get_micron_to_pixel_ratio():
+    """
+    Prompt the user for a known distance in microns and the corresponding pixel distance,
+    then calculate and return the micron-to-pixel ratio.
+    """
+    while True:
+        try:
+            micron_scale = float(input("Enter the known distance in microns (µm): "))
+            pixels = float(input("Enter the corresponding distance in pixels: "))
+            if pixels <= 0:
+                print("Pixel distance must be positive. Try again.")
+                continue
+            ratio = micron_scale / pixels
+            print(f"Micron-to-pixel ratio calculated: {ratio:.6f} µm/pixel\n")
+            return ratio
+        except ValueError:
+            print("Invalid input. Please enter numeric values.")
+
 def segment_sem_particles_tuned(
     image_path,
-    microns_per_pixel=0.173,
+    microns_per_pixel,
     min_area_um2=0.50,
     max_area_um2=5.0
 ):
@@ -82,12 +100,15 @@ def segment_sem_particles_tuned(
     return overlay, areas_um2, avg_area
 
 
+# Ask the user for micron-to-pixel ratio
+microns_per_pixel = get_micron_to_pixel_ratio()
+
 # Example usage:
-image_input_path = "C:/Users/D00456326/Desktop/Research Photos/Nanoparticles/NOCOB2.jpg"
+image_input_path = "C:/Users/D00456326/Desktop/Research Photos/Nanoparticles/WCOB2.jpg"
 
 overlay, areas, avg = segment_sem_particles_tuned(
     image_input_path,
-    microns_per_pixel=0.173,
+    microns_per_pixel=microns_per_pixel,
     min_area_um2=0.50,
     max_area_um2=7.5
 )
