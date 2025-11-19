@@ -17,7 +17,7 @@ if img is None:
 
 # --- Ask user for scale information ---
 micron_scale = float(input("Enter the scale bar length in microns: "))
-pixel_scale = float(input("Enter the pixel length corresponding to that scale bar: "))
+pixel_scale = img.shape[0]
 
 # Convert to nanometers per pixel
 nm_per_pixel = (micron_scale * 1000) / pixel_scale
