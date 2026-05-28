@@ -130,3 +130,7 @@ ggplot(data = full_timeline, aes(x = Year, y = Mean_CO2, color = Data_Type)) +
     y = "Annual Mean CO2 (ppm)",
     color = "Data Type"
     )
+
+#Save the plot with the timeline to 2050
+ggsave("predicted_plot.png", width = 6, height = 4, dpi = 300)
+ggsave("predicted_plot.pdf", width = 7, height = 5)
